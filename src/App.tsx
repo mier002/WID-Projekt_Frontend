@@ -16,6 +16,7 @@ export default function App() {
   const [selectedOption, setSelectedOption] = useState("");
   const [showChart, setShowChart] = useState(false);
 
+  // Verscheidene URL für Bearbeitung localhost:8000 oder direkt auf URL
   //const URL_METEO="http://127.0.0.1:8000/api/"
   const URL_METEO="https://wid-projekt-backend.onrender.com/api/"
 
@@ -23,7 +24,7 @@ export default function App() {
     const fetchData = async () => {
       try {
         const response = await axios.get(URL_METEO+"py/meteodaten");
-        setData(response.data); // Gesamten Datensatz speichern
+        setData(response.data);
       } catch (error) {
         console.error("Fehler beim Laden der JSON-Daten:", error);
       }
@@ -46,23 +47,23 @@ export default function App() {
     if (selectedLocation && selectedOption) {
       const locationData = data.filter((item) => item["Standort"] === selectedLocation);
       const mappedData = locationData.map((item) => ({
-        date: new Date(item["Datum"]).toISOString().split("T")[0], // Formatierte X-Achse
-        value: item[selectedOption], // Dynamisch Regendaten oder Temperatur auswählen
+        date: new Date(item["Datum"]).toISOString().split("T")[0],
+        value: item[selectedOption],
       }));
       
       setFilteredData(mappedData);
       
-      setShowChart(true); // Diagramm anzeigen
+      setShowChart(true);
     } else {
-      setShowChart(false); // Diagramm nicht anzeigen, falls unvollständige Auswahl
+      setShowChart(false);
     }
   };
 
   const handleReset = () => {
-    setSelectedLocation(""); // Standortauswahl zurücksetzen
-    setSelectedOption(""); // Optionsauswahl zurücksetzen
-    setFilteredData([]); // Gefilterte Daten löschen
-    setShowChart(false); // Diagramm ausblenden
+    setSelectedLocation(""); 
+    setSelectedOption(""); 
+    setFilteredData([]); 
+    setShowChart(false); 
   };
 
   const chartSpec: VisualizationSpec= {
@@ -71,8 +72,8 @@ export default function App() {
     data: { values: filteredData },
     mark: "line",
     encoding: {
-      x: { field: "date", type: "temporal", title: "Datum" }, // X-Achse: Datum
-      y: { field: "value", type: "quantitative", title: selectedOption === "T" ? "Temperatur (°C)" : "Regendauer (min)" }, // Y-Achse: Dynamisch
+      x: { field: "date", type: "temporal", title: "Datum" }, 
+      y: { field: "value", type: "quantitative", title: selectedOption === "T" ? "Temperatur (°C)" : "Regendauer (min)" }, 
     },
   };
 
@@ -80,7 +81,7 @@ export default function App() {
     <Box sx={{ p: 4 }}>
       <h1>Gefilterte Daten nach Standort und Option</h1>
 
-      {/* Selector für Standort */}
+      {/* Selection  Standort */}
       <FormControl fullWidth sx={{ mb: 4 }}>
         <InputLabel id="location-select-label">Standort auswählen</InputLabel>
         <Select
@@ -96,7 +97,7 @@ export default function App() {
         </Select>
       </FormControl>
 
-      {/* Selector für Option */}
+      {/* Selecton Option */}
       <FormControl fullWidth sx={{ mb: 4 }}>
         <InputLabel id="option-select-label">Option auswählen</InputLabel>
         <Select
@@ -111,7 +112,7 @@ export default function App() {
         </Select>
       </FormControl>
 
-      {/* Buttons */}
+      {/* Button */}
       <Box sx={{ display: "flex", gap: 2, mb: 4 }}>
         <Button variant="contained" onClick={handleShowChart}>
           Diagramm anzeigen
@@ -121,7 +122,7 @@ export default function App() {
         </Button>
       </Box>
 
-      {/* Diagramm anzeigen */}
+      {/* Diagramm  */}
       {showChart && Object.keys(filteredData).length && <VegaLite spec={chartSpec} />}
     </Box>
   );
