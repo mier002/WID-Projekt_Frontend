@@ -67,11 +67,11 @@ function App() {
 
   return (
     <Box sx={{ p: 4 }}>
-      <h1>WID-project from 17.01.2025 (Erci Micha)</h1>
-      <div> In diesem App können anhand der Metodaten von 2023 verscheidene Abfrage getätigt werden und diese durch das betätigen des Button in einer Grafik angezeigt werden.
-        Damit die Grafik angezeigt werden kann, müssen beide Selektionsboxxen ausgefüsllt werden. In der ersten Box kann zwischen drei Standorten in Zürich ausgewählt werden.
-        In der zweiten Box ob einem die Regen- oder Temperaturdaten intressiert. Mit der Button Zurücksetzten können die Eingabedaten gelöscht werden und mit dem anderen Button
-        die Grafik eingeblendet werden. 
+      <h1>WID-Projekt (Erci Micha)</h1>
+      <div> In dieser App können anhand der Wetterdaten von 2023 verschiedene Abfragen getätigt werden, die durch das Betätigen des Buttons in einer Grafik angezeigt werden.
+      Damit die Grafik angezeigt werden kann, müssen beide Selektionsboxen ausgefüllt werden. In der ersten Box kann zwischen drei Standorten in Zürich ausgewählt werden.
+      In der zweiten Box kann angegeben werden, ob die Regen- oder Temperaturdaten von Interesse sind. Mit dem Button "Zurücksetzen" können die Eingabedaten gelöscht werden, und mit dem anderen Button wird die Grafik eingeblendet.
+      Viel spass mit der App
       </div>
 
       <Selectbox selectedLocation={selectedLocation} selectedOption={selectedOption} setSelectedLocation={setSelectedLocation} setSelectedOption={setSelectedOption}></Selectbox>
