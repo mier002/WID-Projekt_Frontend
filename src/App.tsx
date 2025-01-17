@@ -1,20 +1,18 @@
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import { VegaLite } from "react-vega";
 import axios from "axios";
 import { VisualizationSpec } from 'vega-embed';
+import Selectbox from "./selectbox.tsx";
 
-export default function App() {
+function App() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState({});
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
   const [showChart, setShowChart] = useState(false);
+
 
   // Verscheidene URL für Bearbeitung localhost:8000 oder direkt auf URL
   //const URL_METEO="http://127.0.0.1:8000/api/"
@@ -32,16 +30,6 @@ export default function App() {
 
     fetchData();
   }, []);
-
-  const handleLocationChange = (event: any) => {
-    const location = event.target.value;
-    setSelectedLocation(location);
-  };
-
-  const handleOptionChange = (event: any) => {
-    const option = event.target.value;
-    setSelectedOption(option);
-  };
 
   const handleShowChart = () => {
     if (selectedLocation && selectedOption) {
@@ -86,39 +74,8 @@ export default function App() {
         die Grafik eingeblendet werden. 
       </div>
 
-      <h2>Auswahl Standorte:</h2>
-      {/* Selection  Standort */}
-      <FormControl fullWidth sx={{ mb: 4 }}>
-        <InputLabel id="location-select-label">Standort auswählen</InputLabel>
-        <Select
-          labelId="location-select-label"
-          id="location-select"
-          value={selectedLocation}
-          label="Standort auswählen"
-          onChange={handleLocationChange}
-        >
-          <MenuItem value={"Zch_Rosengartenstrasse"}>Rosengartenstrasse</MenuItem>
-          <MenuItem value={"Zch_Schimmelstrasse"}>Schimmelstrasse</MenuItem>
-          <MenuItem value={"Zch_Stampfenbachstrasse"}>Stampfenbachstrasse</MenuItem>
-        </Select>
-      </FormControl>
-
-      {/* Selecton Option */}
-      <h2>Auswahl Optionen:</h2>
-      <FormControl fullWidth sx={{ mb: 4 }}>
-        <InputLabel id="option-select-label">Option auswählen</InputLabel>
-        <Select
-          labelId="option-select-label"
-          id="option-select"
-          value={selectedOption}
-          label="Option auswählen"
-          onChange={handleOptionChange}
-        >
-          <MenuItem value={"T"}>Temperatur</MenuItem>
-          <MenuItem value={"RainDur"}>Regendauer</MenuItem>
-        </Select>
-      </FormControl>
-
+      <Selectbox selectedLocation={selectedLocation} selectedOption={selectedOption} setSelectedLocation={setSelectedLocation} setSelectedOption={setSelectedOption}></Selectbox>
+      
       {/* Button */}
       <Box sx={{ display: "flex", gap: 2, mb: 4 }}>
         <Button variant="contained" onClick={handleShowChart}>
@@ -134,3 +91,5 @@ export default function App() {
     </Box>
   );
 }
+
+export default App;
